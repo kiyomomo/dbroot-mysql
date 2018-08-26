@@ -1,0 +1,26 @@
+<table class="table table-bordered table-striped table-hover table-condensed" style="table-layout:fixed">
+  <tbody>
+    <tr>
+      <th>HOST NAME</th>
+      <td>{{ host_name }}</td>
+    </tr>
+    <tr>
+      <th>PORT</th>
+      <td>{{ port }}</td>
+    </tr>
+  </tbody>
+</table>
+<table class="table table-bordered table-striped table-hover table-condensed" style="table-layout:fixed">
+  <tbody>
+    <tr>
+      <th>DATABASE NAME</th>
+      <th style="text-align:center">TABLES</th>
+    </tr>
+    {% for r in result %}
+    <tr>
+      <td>{{ r.Database }}</td>
+      <td style="text-align:center"><a class="btn btn-primary btn-sm" href="/detail/{{ id }}/object_tables/{{ r.Database }}" name="object_tables">Show</a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>

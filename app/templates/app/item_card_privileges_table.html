@@ -1,0 +1,38 @@
+<table class="table table-bordered table-striped table-hover table-condensed" style="table-layout:fixed">
+  <tbody>
+    <tr>
+      <th>HOST NAME</th>
+      <td>{{ host_name }}</td>
+    </tr>
+    <tr>
+      <th>PORT</th>
+      <td>{{ port }}</td>
+    </tr>
+  </tbody>
+</table>
+<small>
+<table class="table table-bordered table-striped table-hover table-condensed">
+  <tbody>
+    <tr>
+      <th>Host</th>
+      <th>Db</th>
+      <th>User</th>
+      <th>Table_name</th>
+      <th>Grantor</th>
+      <th>Table_priv</th>
+      <th>Column_priv</th>
+    </tr>
+    {% for r in result %}
+    <tr>
+     <td>{{ r.Host }}</td>
+     <td>{{ r.Db }}</td>
+     <td>{{ r.User }}</td>
+     <td>{{ r.Table_name }}</td>
+     <td>{{ r.Grantor }}</td>
+     <td>{{ r.Table_priv }}</td>
+     <td>{{ r.Column_priv }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</small>

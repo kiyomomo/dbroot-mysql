@@ -1,0 +1,30 @@
+<table class="table table-bordered table-striped table-hover table-condensed" style="table-layout:fixed">
+  <tbody>
+    <tr>
+      <th>HOST NAME</th>
+      <td>{{ host_name }}</td>
+    </tr>
+    <tr>
+      <th>PORT</th>
+      <td>{{ port }}</td>
+    </tr>
+  </tbody>
+</table>
+<table class="table table-bordered table-striped table-hover table-condensed" style="table-layout:fixed">
+  <tbody>
+    <tr>
+      <th>TABLE_NAME</th>
+      <th style="text-align:center">SCHEMA</th>
+      <th style="text-align:center">STATUS</th>
+    </tr>
+    {% for r in result %}
+    <tr>
+      {% for i in r.items %}
+      <td>{{ i.1 }}</td>
+      <td style="text-align:center"><a class="btn btn-primary btn-sm" href="/detail/{{ id }}/object_table_schema/{{ db_name }}/{{ i.1 }}" name="object_table_schema">Show</a></td>
+      <td style="text-align:center"><a class="btn btn-primary btn-sm" href="/detail/{{ id }}/object_table_status/{{ db_name }}/{{ i.1 }}" name="object_table_status">Show</a></td>
+      {% endfor %}
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>

@@ -1,0 +1,26 @@
+<table class="table table-bordered table-striped table-hover table-condensed" style="table-layout:fixed">
+  <tbody>
+    <tr>
+      <th>HOST NAME</th>
+      <td>{{ host_name }}</td>
+    </tr>
+    <tr>
+      <th>PORT</th>
+      <td>{{ port }}</td>
+    </tr>
+  </tbody>
+</table>
+<small>
+<table class="table table-bordered table-striped table-hover table-condensed" style="table-layout:fixed">
+  <tbody>
+    <tr>
+      <th style="text-align:center">Status</th>
+    </tr>
+    {% for r in result %}
+    <tr>
+      <td><pre>{{ r.Status }}</pre></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</small>

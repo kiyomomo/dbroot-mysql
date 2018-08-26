@@ -1,0 +1,180 @@
+<table class="table table-bordered table-striped table-hover table-condensed" style="table-layout:fixed">
+  <tbody>
+    <tr>
+      <th>HOST NAME</th>
+      <td>{{ host_name }}</td>
+    </tr>
+    <tr>
+      <th>PORT</th>
+      <td>{{ port }}</td>
+    </tr>
+  </tbody>
+</table>
+<small>
+<table class="table table-bordered table-striped table-hover table-condensed" style="table-layout:fixed">
+  <tbody>
+    {% for r in result %}
+    <tr>
+      <th>Slave_IO_State</th>
+      <td>{{ r.Slave_IO_State }}</td>
+    </tr>
+    <tr>
+      <th>Master_Host</th>
+      <td>{{ r.Master_Host }}</td>
+    </tr>
+    <tr>
+      <th>Master_User</th>
+      <td>{{ r.Master_User }}</td>
+    </tr>
+    <tr>
+      <th>Master_Port</th>
+      <td>{{ r.Master_Port }}</td>
+    </tr>
+    <tr>
+      <th>Connect_Retry</th>
+      <td>{{ r.Connect_Retry }}</td>
+    </tr>
+    <tr>
+      <th>Master_Log_File</th>
+      <td>{{ r.Master_Log_File }}</td>
+    </tr>
+    <tr>
+      <th>Read_Master_Log_Pos</th>
+      <td>{{ r.Read_Master_Log_Pos }}</td>
+    </tr>
+    <tr>
+      <th>Relay_Log_File</th>
+      <td>{{ r.Relay_Log_File }}</td>
+    </tr>
+    <tr>
+      <th>Relay_Log_Pos</th>
+      <td>{{ r.Relay_Log_Pos }}</td>
+    </tr>
+    <tr>
+      <th>Relay_Master_Log_File</th>
+      <td>{{ r.Relay_Master_Log_File }}</td>
+    </tr>
+    <tr>
+      <th>Slave_IO_Running</th>
+      <td>{{ r.Slave_IO_Running }}</td>
+    </tr>
+    <tr>
+      <th>Slave_SQL_Running</th>
+      <td>{{ r.Slave_SQL_Running }}</td>
+    </tr>
+    <tr>
+      <th>Replicate_Do_DB</th>
+      <td>{{ r.Replicate_Do_DB }}</td>
+    </tr>
+    <tr>
+      <th>Replicate_Ignore_DB</th>
+      <td>{{ r.Replicate_Ignore_DB }}</td>
+    </tr>
+    <tr>
+      <th>Replicate_Do_Table</th>
+      <td>{{ r.Replicate_Do_Table }}</td>
+    </tr>
+    <tr>
+      <th>Replicate_Ignore_Table</th>
+      <td>{{ r.Replicate_Ignore_Table }}</td>
+    </tr>
+    <tr>
+      <th>Replicate_Wild_Do_Table</th>
+      <td>{{ r.Replicate_Wild_Do_Table }}</td>
+    </tr>
+    <tr>
+      <th>Replicate_Wild_Ignore_Table</th>
+      <td>{{ r.Replicate_Wild_Ignore_Table }}</td>
+    </tr>
+    <tr>
+      <th>Last_Errno</th>
+      <td>{{ r.Last_Errno }}</td>
+    </tr>
+    <tr>
+      <th>Last_Error</th>
+      <td>{{ r.Last_Error }}</td>
+    </tr>
+    <tr>
+      <th>Skip_Counter</th>
+      <td>{{ r.Skip_Counter }}</td>
+    </tr>
+    <tr>
+      <th>Exec_Master_Log_Pos</th>
+      <td>{{ r.Exec_Master_Log_Pos }}</td>
+    </tr>
+    <tr>
+      <th>Relay_Log_Space</th>
+      <td>{{ r.Relay_Log_Space }}</td>
+    </tr>
+    <tr>
+      <th>Until_Condition</th>
+      <td>{{ r.Until_Condition }}</td>
+    </tr>
+    <tr>
+      <th>Until_Log_File</th>
+      <td>{{ r.Until_Log_File }}</td>
+    </tr>
+    <tr>
+      <th>Until_Log_Pos</th>
+      <td>{{ r.Until_Log_Pos }}</td>
+    </tr>
+    <tr>
+      <th>Master_SSL_Allowed</th>
+      <td>{{ r.Master_SSL_Allowed }}</td>
+    </tr>
+    <tr>
+      <th>Master_SSL_CA_File</th>
+      <td>{{ r.Master_SSL_CA_File }}</td>
+    </tr>
+    <tr>
+      <th>Master_SSL_CA_Path</th>
+      <td>{{ r.Master_SSL_CA_Path }}</td>
+    </tr>
+    <tr>
+      <th>Master_SSL_Cert</th>
+      <td>{{ r.Master_SSL_Cert }}</td>
+    </tr>
+    <tr>
+      <th>Master_SSL_Cipher</th>
+      <td>{{ r.Master_SSL_Cipher }}</td>
+    </tr>
+    <tr>
+      <th>Master_SSL_Key</th>
+      <td>{{ r.Master_SSL_Key }}</td>
+    </tr>
+    <tr>
+      <th>Seconds_Behind_Master</th>
+      <td>{{ r.Seconds_Behind_Master }}</td>
+    </tr>
+    <tr>
+      <th>Master_SSL_Verify_Server_Cert</th>
+      <td>{{ r.Master_SSL_Verify_Server_Cert }}</td>
+    </tr>
+    <tr>
+      <th>Last_IO_Errno</th>
+      <td>{{ r.Last_IO_Errno }}</td>
+    </tr>
+    <tr>
+      <th>Last_IO_Error</th>
+      <td>{{ r.Last_IO_Error }}</td>
+    </tr>
+    <tr>
+      <th>Last_SQL_Errno</th>
+      <td>{{ r.Last_SQL_Errno }}</td>
+    </tr>
+    <tr>
+      <th>Last_SQL_Error</th>
+      <td>{{ r.Last_SQL_Error }}</td>
+    </tr>
+    <tr>
+      <th>Replicate_Ignore_Server_Ids</th>
+      <td>{{ r.Replicate_Ignore_Server_Ids }}</td>
+    </tr>
+    <tr>
+      <th>Master_Server_Id</th>
+      <td>{{ r.Master_Server_Id }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</small>

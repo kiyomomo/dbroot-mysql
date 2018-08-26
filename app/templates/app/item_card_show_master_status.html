@@ -1,0 +1,32 @@
+<table class="table table-bordered table-striped table-hover table-condensed" style="table-layout:fixed">
+  <tbody>
+    <tr>
+      <th>HOST NAME</th>
+      <td>{{ host_name }}</td>
+    </tr>
+    <tr>
+      <th>PORT</th>
+      <td>{{ port }}</td>
+    </tr>
+  </tbody>
+</table>
+<small>
+<table class="table table-bordered table-striped table-hover table-condensed" style="table-layout:fixed">
+  <tbody>
+    <tr>
+      <th>File</th>
+      <th>Position</th>
+      <th>Binlog_Do_DB</th>
+      <th>Binlog_Ignore_DB</th>
+    </tr>
+    {% for r in result %}
+    <tr>
+      <td>{{ r.File }}</td>
+      <td>{{ r.Position }}</td>
+      <td>{{ r.Binlog_Do_DB }}</td>
+      <td>{{ r.Binlog_Ignore_DB }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</small>

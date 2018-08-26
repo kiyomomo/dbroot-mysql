@@ -1,0 +1,86 @@
+<table class="table table-bordered table-striped table-hover table-condensed" style="table-layout:fixed">
+  <tbody>
+    <tr>
+      <th>HOST NAME</th>
+      <td>{{ host_name }}</td>
+    </tr>
+    <tr>
+      <th>PORT</th>
+      <td>{{ port }}</td>
+    </tr>
+  </tbody>
+</table>
+<small>
+<table class="table table-bordered table-striped table-hover table-condensed" style="display:block; max-width:100%; overflow-x:auto">
+  <tbody>
+    <tr>
+      <th>Host</th>
+      <th>User</th>
+      <th>Select</th>
+      <th>Insert</th>
+      <th>Update</th>
+      <th>Delete</th>
+      <th>Create</th>
+      <th>Drop</th>
+      <th>Reload</th>
+      <th>Shutdown</th>
+      <th>Process</th>
+      <th>File</th>
+      <th>Grant</th>
+      <th>References</th>
+      <th>Index</th>
+      <th>Alter</th>
+      <th>Show_db</th>
+      <th>Super</th>
+      <th>Create_tmp_table</th>
+      <th>Lock_tables</th>
+      <th>Execute</th>
+      <th>Repl_slave</th>
+      <th>Repl_client</th>
+      <th>Create_view</th>
+      <th>Show_view</th>
+      <th>Create_routine</th>
+      <th>Alter_routine</th>
+      <th>Create_user</th>
+      <th>Event</th>
+      <th>Trigger</th>
+      <th>Create_tablespace</th>
+    </tr>
+    {% for r in result %}
+    <tr>
+      <td>{{ r.Host }}</td>
+      <td>{{ r.User }}</td>
+      <td style="text-align:center">{{ r.Select_priv }}</td>
+      <td style="text-align:center">{{ r.Insert_priv }}</td>
+      <td style="text-align:center">{{ r.Update_priv }}</td>
+      <td style="text-align:center">{{ r.Delete_priv }}</td>
+      <td style="text-align:center">{{ r.Create_priv }}</td>
+      <td style="text-align:center">{{ r.Drop_priv }}</td>
+      <td style="text-align:center">{{ r.Reload_priv }}</td>
+      <td style="text-align:center">{{ r.Shutdown_priv }}</td>
+      <td style="text-align:center">{{ r.Process_priv }}</td>
+      <td style="text-align:center">{{ r.File_priv }}</td>
+      <td style="text-align:center">{{ r.Grant_priv }}</td>
+      <td style="text-align:center">{{ r.References_priv }}</td>
+      <td style="text-align:center">{{ r.Index_priv }}</td>
+      <td style="text-align:center">{{ r.Alter_priv }}</td>
+      <td style="text-align:center">{{ r.Show_db_priv }}</td>
+      <td style="text-align:center">{{ r.Super_priv }}</td>
+      <td style="text-align:center">{{ r.Create_tmp_table_priv }}</td>
+      <td style="text-align:center">{{ r.Lock_tables_priv }}</td>
+      <td style="text-align:center">{{ r.Execute_priv }}</td>
+      <td style="text-align:center">{{ r.Repl_slave_priv }}</td>
+      <td style="text-align:center">{{ r.Repl_client_priv }}</td>
+      <td style="text-align:center">{{ r.Create_view_priv }}</td>
+      <td style="text-align:center">{{ r.Show_view_priv }}</td>
+      <td style="text-align:center">{{ r.Create_routine_priv }}</td>
+      <td style="text-align:center">{{ r.Alter_routine_priv }}</td>
+      <td style="text-align:center">{{ r.Create_user_priv }}</td>
+      <td style="text-align:center">{{ r.Event_priv }}</td>
+      <td style="text-align:center">{{ r.Trigger_priv }}</td>
+      <td style="text-align:center">{{ r.Create_tablespace_priv }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</small>

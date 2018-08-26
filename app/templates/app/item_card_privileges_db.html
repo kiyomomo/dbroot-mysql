@@ -1,0 +1,68 @@
+<table class="table table-bordered table-striped table-hover table-condensed" style="table-layout:fixed">
+  <tbody>
+    <tr>
+      <th>HOST NAME</th>
+      <td>{{ host_name }}</td>
+    </tr>
+    <tr>
+      <th>PORT</th>
+      <td>{{ port }}</td>
+    </tr>
+  </tbody>
+</table>
+<small>
+<table class="table table-bordered table-striped table-hover table-condensed" style="display:block; max-width:100%; overflow-x:auto">
+  <tbody>
+    <tr>
+      <th>Host</th>
+      <th>Db</th>
+      <th>User</th>
+      <th>Select</th>
+      <th>Insert</th>
+      <th>Update</th>
+      <th>Delete</th>
+      <th>Create</th>
+      <th>Drop</th>
+      <th>Grant</th>
+      <th>References</th>
+      <th>Index</th>
+      <th>Alter</th>
+      <th>Create tmp table</th>
+      <th>Lock tables</th>
+      <th>Create view</th>
+      <th>Show view</th>
+      <th>Create routine</th>
+      <th>Alter routine</th>
+      <th>Execute</th>
+      <th>Event</th>
+      <th>Trigger</th>
+    </tr>
+    {% for r in result %}
+    <tr>
+      <td>{{ r.Host }}</td>
+      <td>{{ r.Db }}</td>
+      <td>{{ r.User }}</td>
+      <td style="text-align:center">{{ r.Select_priv }}</td>
+      <td style="text-align:center">{{ r.Insert_priv }}</td>
+      <td style="text-align:center">{{ r.Update_priv }}</td>
+      <td style="text-align:center">{{ r.Delete_priv }}</td>
+      <td style="text-align:center">{{ r.Create_priv }}</td>
+      <td style="text-align:center">{{ r.Drop_priv }}</td>
+      <td style="text-align:center">{{ r.Grant_priv }}</td>
+      <td style="text-align:center">{{ r.References_priv }}</td>
+      <td style="text-align:center">{{ r.Index_priv }}</td>
+      <td style="text-align:center">{{ r.Alter_priv }}</td>
+      <td style="text-align:center">{{ r.Create_tmp_table_priv }}</td>
+      <td style="text-align:center">{{ r.Lock_tables_priv }}</td>
+      <td style="text-align:center">{{ r.Create_view_priv }}</td>
+      <td style="text-align:center">{{ r.Show_view_priv }}</td>
+      <td style="text-align:center">{{ r.Create_routine_priv }}</td>
+      <td style="text-align:center">{{ r.Alter_routine_priv }}</td>
+      <td style="text-align:center">{{ r.Execute_priv }}</td>
+      <td style="text-align:center">{{ r.Event_priv }}</td>
+      <td style="text-align:center">{{ r.Trigger_priv }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</small>

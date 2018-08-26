@@ -1,0 +1,52 @@
+<table class="table table-bordered table-striped table-hover table-condensed" style="table-layout:fixed">
+  <tbody>
+    <tr>
+      <th>HOST NAME</th>
+      <td>{{ host_name }}</td>
+    </tr>
+    <tr>
+      <th>PORT</th>
+      <td>{{ port }}</td>
+    </tr>
+  </tbody>
+</table>
+<table class="table table-bordered table-striped table-hover table-condensed" style="table-layout:fixed">
+  <tbody>
+    <tr>
+      <th>NAME</th>
+      <th style="text-align:center">DETAIL</th>
+    </tr>
+    <tr>
+      <td>show full processlist</td>
+      <td style="text-align:center"><a class="btn btn-primary btn-sm" href="/detail/{{ id }}/show_full_processlist">Show</a></td>
+    </tr>
+    <tr>
+      <td>show variables</td>
+      <td style="text-align:center"><a class="btn btn-primary btn-sm" href="/detail/{{ id }}/show_variables">Show</a></td>
+    </tr>
+    <tr>
+      <td>show global status</td>
+      <td style="text-align:center"><a class="btn btn-primary btn-sm" href="/detail/{{ id }}/show_global_status">Show</a></td>
+    </tr>
+    <tr>
+      <td>show engine innodb status</td>
+      <td style="text-align:center"><a class="btn btn-primary btn-sm" href="/detail/{{ id }}/show_engine_innodb_status">Show</a></td>
+    </tr>
+    <tr>
+      <td>show master status</td>
+      <td style="text-align:center"><a class="btn btn-primary btn-sm" href="/detail/{{ id }}/show_master_status">Show</a></td>
+    </tr>
+    <tr>
+      <td>show master logs</td>
+      <td style="text-align:center"><a class="btn btn-primary btn-sm" href="/detail/{{ id }}/show_master_logs">Show</a></td>
+    </tr>
+    <tr>
+      <td>show slave status</td>
+      <td style="text-align:center"><a class="btn btn-primary btn-sm" href="/detail/{{ id }}/show_slave_status">Show</a></td>
+    </tr>
+    <tr>
+      <td>show slave hosts</td>
+      <td style="text-align:center"><a class="btn btn-primary btn-sm" href="/detail/{{ id }}/show_slave_hosts">Show</a></td>
+    </tr>
+  </tbody>
+</table>
