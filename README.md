@@ -11,23 +11,23 @@ DBROOT MySQL is simple web user interface for MySQL.
 ## Features
 
 - Objects
- - show databases
- - show tables
- - show create table
- - show table status
+  - show databases
+  - show tables
+  - show create table
+  - show table status
 - Privileges
- - mysql.user
- - mysql.db
- - mysql.tables_priv
+  - mysql.user
+  - mysql.db
+  - mysql.tables_priv
 - Show
- - show full processlist
- - show variables
- - show global status
- - show engine innodb status
- - show master status
- - show master logs
- - show slave status
- - show slave hosts
+  - show full processlist
+  - show variables
+  - show global status
+  - show engine innodb status
+  - show master status
+  - show master logs
+  - show slave status
+  - show slave hosts
 
 ## Requirement
 
