@@ -308,6 +308,17 @@ class ItemShowVariablesView(LoginRequiredMixin, DetailView):
         port = queryset['port']
         conn = pymysql.connect(
             user = CONNECT_USER, password = CONNECT_PASSWORD, host = host_name, port = port)
+        qs = QueryDict(request.META['QUERY_STRING'])
+        if 'variable_name' in qs and 'variable_value' in qs:
+            cursor_update = conn.cursor()
+            variable_name = QueryDict(request.META['QUERY_STRING'])['variable_name']
+            variable_value = QueryDict(request.META['QUERY_STRING'])['variable_value']
+            sql_update = "set global " + variable_name + "=" + variable_value
+            cursor_update.execute(sql_update)
+            # print(sql_update)
+            cursor_update.close()
+            return redirect('show_variables', pk=id)
+
         cursor = conn.cursor()
         sql = "show variables"
         cursor.execute(sql)

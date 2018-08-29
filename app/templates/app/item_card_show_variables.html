@@ -10,6 +10,21 @@
     </tr>
   </tbody>
 </table>
+<div class="jumbotron">
+  <h3>Change parameter</h3>
+  <form action="/detail/{{ id }}/show_variables" method="GET">
+    <label>Variable_name</label>
+    <select id="variable_name" name="variable_name" required>
+      <option value="">Please select parameter</option>
+      {% for r in result %}
+      <option>{{ r.Variable_name }}</option>
+      {% endfor %}
+    </select>
+    <label>Value</label>
+    <input type="text" name="variable_value" required>
+    <input class="btn btn-primary" type="submit" value="Change">
+  </form>
+</div>
 <small>
 <table class="table table-bordered table-striped table-hover table-condensed" style="table-layout:fixed">
   <tbody>
