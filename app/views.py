@@ -3,7 +3,7 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django_filters.views import FilterView
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import QueryDict, JsonResponse
 from django.utils.datastructures import MultiValueDictKeyError
 from pure_pagination.mixins import PaginationMixin
@@ -277,6 +277,16 @@ class ItemShowFullProcesslistView(LoginRequiredMixin, DetailView):
         port = queryset['port']
         conn = pymysql.connect(
             user = CONNECT_USER, password = CONNECT_PASSWORD, host = host_name, port = port)
+        qs = QueryDict(request.META['QUERY_STRING'])
+        if 'kill_id' in qs:
+            cursor_update = conn.cursor()
+            kill_id = QueryDict(request.META['QUERY_STRING'])['kill_id']
+            sql_update = "kill " + kill_id
+            cursor_update.execute(sql_update)
+            # print(sql_update)
+            cursor_update.close()
+            return redirect('show_full_processlist', pk=id)
+
         cursor = conn.cursor()
         sql = "show full processlist"
         cursor.execute(sql)

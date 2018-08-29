@@ -14,6 +14,7 @@
 <table class="table table-bordered table-striped table-hover table-condensed">
   <tbody>
     <tr>
+      <th style="text-align:center">Action</th>
       <th>Id</th>
       <th>User</th>
       <th>Host</th>
@@ -25,9 +26,20 @@
     </tr>
     {% for r in result %}
     <tr>
-      {% for i in r.items %}
-      <td>{{ i.1 }}</td>
-      {% endfor %}
+      <td style="text-align:center">
+        <form action="/detail/{{ id }}/show_full_processlist" method="GET">
+          <input type="hidden" name="kill_id" value={{ r.Id }}>
+          <input class="btn btn-primary btn-sm" type="submit" value="Kill">
+        </form>
+      </td>
+      <td>{{ r.Id }}</td>
+      <td>{{ r.User }}</td>
+      <td>{{ r.Host }}</td>
+      <td>{{ r.db }}</td>
+      <td>{{ r.Command }}</td>
+      <td>{{ r.Time }}</td>
+      <td>{{ r.State }}</td>
+      <td>{{ r.Info }}</td>
     </tr>
     {% endfor %}
   </tbody>
