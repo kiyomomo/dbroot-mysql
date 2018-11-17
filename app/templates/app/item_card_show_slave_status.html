@@ -11,6 +11,77 @@
   </tbody>
 </table>
 <small>
+{% if result %}
+<div class="jumbotron">
+  <div class="row">
+    <h3>Slave operation</h3>
+    {% for r in result %}
+    {% if r.Slave_IO_Running == 'No' and r.Slave_SQL_Running == 'No' %}
+    <div class="span3 offset-sm-1" onclick="return confirm('You are going to start slave. Are you sure?')">
+      <a class="btn btn-primary" href="/detail/{{ id }}/operation_slave_start">START SLAVE</a>
+    </div>
+    <div class="span3 offset-sm-1" onclick="return confirm('You are going to skip SQL(counter = 1). Are you sure?')">
+      <a class="btn btn-primary" href="/detail/{{ id }}/operation_slave_skip_counter">SKIP COUNTER</a>
+      <br>
+      <font>sql_slave_skip_counter = 1</font>
+    </div>
+    <div class="span3 offset-sm-1" onclick="return confirm('You are going to reset slave. Are you sure?')">
+      <a class="btn btn-primary" href="/detail/{{ id }}/operation_slave_reset">RESET SLAVE ALL</a>
+      <br>
+      <font>MySQL 5.5 and later</font>
+    </div>
+    {% elif r.Slave_IO_Running == 'No' and r.Slave_SQL_Running == 'Yes' %}
+    <div class="span3 offset-sm-1" onclick="return confirm('You are going to stop slave. Are you sure?')">
+      <a class="btn btn-primary" href="/detail/{{ id }}/operation_slave_stop">STOP SLAVE</a>
+    </div>
+    {% elif r.Slave_IO_Running == 'Yes' and r.Slave_SQL_Running == 'No' %}
+    <div class="span3 offset-sm-1" onclick="return confirm('You are going to stop slave. Are you sure?')">
+      <a class="btn btn-primary" href="/detail/{{ id }}/operation_slave_stop">STOP SLAVE</a>
+    </div>
+    {% elif r.Slave_IO_Running == 'Yes' and r.Slave_SQL_Running == 'Yes' %}
+    <div class="span3 offset-sm-1" onclick="return confirm('You are going to stop slave. Are you sure?')">
+      <a class="btn btn-primary" href="/detail/{{ id }}/operation_slave_stop">STOP SLAVE</a>
+    </div>
+    {% else %}
+    <div class="span3 offset-sm-1" onclick="return confirm('You are going to stop slave. Are you sure?')">
+      <a class="btn btn-primary" href="/detail/{{ id }}/operation_slave_stop">STOP SLAVE</a>
+    </div>
+    {% endif %}
+    {% endfor %}
+  </div>
+</div>
+{% else %}
+<div class="jumbotron">
+  <div class="row">
+    <form action="/detail/{{ id }}/operation_slave_change_master" method="GET">
+      <h3>Change master
+      <input class="btn btn-primary offset-sm-1" type="submit" value="Change" onclick="return confirm('You are going to execute change master. Are you sure?')">
+      </h3>
+      <table class="table table-bordered table-striped table-hover table-condensed" style="table-layout:fixed">
+        <tbody>
+          <tr>
+            <th><label>MASTER_HOST</label></th>
+            <td style="text-align:center"><input type="text" name="master_host" size="50" required></td>
+          </tr>
+          <tr>
+            <th><label>MASTER_PORT</label></th>
+            <td style="text-align:center"><input type="text" name="master_port" size="50" required></td>
+          </tr>
+          <tr>
+            <th><label>MASTER_LOG_FILE</label></th>
+            <td style="text-align:center"><input type="text" name="master_log_file" size="50" required></td>
+          </tr>
+          <tr>
+            <th><label>MASTER_LOG_POS</label></th>
+            <td style="text-align:center"><input type="text" name="master_log_pos" size="50" required></td>
+          </tr>
+        </tbody>
+      </table>
+    </form>
+  </div>
+</div>
+{% endif %}
+{% if result %}
 <table class="table table-bordered table-striped table-hover table-condensed" style="table-layout:fixed">
   <tbody>
     {% for r in result %}
@@ -177,4 +248,5 @@
     {% endfor %}
   </tbody>
 </table>
+{% endif %}
 </small>
