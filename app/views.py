@@ -277,16 +277,6 @@ class ItemShowFullProcesslistView(LoginRequiredMixin, DetailView):
         port = queryset['port']
         conn = pymysql.connect(
             user = CONNECT_USER, password = CONNECT_PASSWORD, host = host_name, port = port)
-        qs = QueryDict(request.META['QUERY_STRING'])
-        if 'kill_id' in qs:
-            cursor_update = conn.cursor()
-            kill_id = QueryDict(request.META['QUERY_STRING'])['kill_id']
-            sql_update = "kill " + kill_id
-            cursor_update.execute(sql_update)
-            # print(sql_update)
-            cursor_update.close()
-            return redirect('show_full_processlist', pk=id)
-
         cursor = conn.cursor()
         sql = "show full processlist"
         cursor.execute(sql)
@@ -361,15 +351,25 @@ class ItemShowEngineInnodbStatusView(LoginRequiredMixin, DetailView):
         port = queryset['port']
         conn = pymysql.connect(
             user = CONNECT_USER, password = CONNECT_PASSWORD, host = host_name, port = port)
-        cursor = conn.cursor()
-        sql = "show engine innodb status"
-        cursor.execute(sql)
-        desc = [d[0].replace('#', '') for d in cursor.description]
-        result = [dict(zip(desc, line)) for line in cursor]
-        cursor.close()
-        template_name = 'app/item_show_engine_innodb_status.html'
-        response_data = {'id': id, 'host_name': host_name, 'port': port, 'result': result}
-        return render_response(request, template_name, response_data)
+        cursor_storage_engine = conn.cursor()
+        sql_storage_engine = "show variables like " + "'" + "%storage_engine" + "'"
+        cursor_storage_engine.execute(sql_storage_engine)
+        desc_storage_engine = [d[0].replace('#', '') for d in cursor_storage_engine.description]
+        result_storage_engine = [dict(zip(desc_storage_engine, line)) for line in cursor_storage_engine]
+        cursor_storage_engine.close()
+        storage_engine = result_storage_engine[0]['Value']
+        if storage_engine == 'InnoDB':
+            cursor = conn.cursor()
+            sql = "show engine innodb status"
+            cursor.execute(sql)
+            desc = [d[0].replace('#', '') for d in cursor.description]
+            result = [dict(zip(desc, line)) for line in cursor]
+            cursor.close()
+            template_name = 'app/item_show_engine_innodb_status.html'
+            response_data = {'id': id, 'host_name': host_name, 'port': port, 'result': result}
+            return render_response(request, template_name, response_data)
+        else:
+            return redirect('/')
 
 
 class ItemShowMasterStatusView(LoginRequiredMixin, DetailView):
@@ -454,3 +454,171 @@ class ItemShowSlaveHostsView(LoginRequiredMixin, DetailView):
         template_name = 'app/item_show_slave_hosts.html'
         response_data = {'id': id, 'host_name': host_name, 'port': port, 'result': result}
         return render_response(request, template_name, response_data)
+
+
+class ItemOperationKillProcessView(LoginRequiredMixin, DetailView):
+    def get(self, request, pk):
+        model = Item
+        queryset = model.objects.values(
+            'id', 'host_name', 'port').get(id = pk)
+        id = queryset['id']
+        host_name = queryset['host_name']
+        port = queryset['port']
+        conn = pymysql.connect(
+            user = CONNECT_USER, password = CONNECT_PASSWORD, host = host_name, port = port)
+        qs = QueryDict(request.META['QUERY_STRING'])
+        if 'kill_id' in qs:
+            cursor = conn.cursor()
+            kill_id = QueryDict(request.META['QUERY_STRING'])['kill_id']
+            sql = "kill " + kill_id
+            cursor.execute(sql)
+            cursor.close()
+            return redirect('show_full_processlist', pk = id)
+        else:
+            return redirect('/')
+
+
+class ItemOperationChangeParameterView(LoginRequiredMixin, DetailView):
+    def get(self, request, pk):
+        model = Item
+        queryset = model.objects.values(
+            'id', 'host_name', 'port').get(id = pk)
+        id = queryset['id']
+        host_name = queryset['host_name']
+        port = queryset['port']
+        conn = pymysql.connect(
+            user = CONNECT_USER, password = CONNECT_PASSWORD, host = host_name, port = port)
+        qs = QueryDict(request.META['QUERY_STRING'])
+        if 'variable_name' in qs and 'variable_value' in qs:
+            cursor = conn.cursor()
+            variable_name = QueryDict(request.META['QUERY_STRING'])['variable_name']
+            variable_value = QueryDict(request.META['QUERY_STRING'])['variable_value']
+            sql = "set global " + variable_name + "=" + variable_value
+            cursor.execute(sql)
+            cursor.close()
+            return redirect('show_variables', pk = id)
+        else:
+            return redirect('/')
+
+
+class ItemOperationPurgeMasterLogsView(LoginRequiredMixin, DetailView):
+    def get(self, request, pk):
+        model = Item
+        queryset = model.objects.values(
+            'id', 'host_name', 'port').get(id = pk)
+        id = queryset['id']
+        host_name = queryset['host_name']
+        port = queryset['port']
+        conn = pymysql.connect(
+            user = CONNECT_USER, password = CONNECT_PASSWORD, host = host_name, port = port)
+        qs = QueryDict(request.META['QUERY_STRING'])
+        if 'binlog_name' in qs:
+            cursor = conn.cursor()
+            binlog_name = QueryDict(request.META['QUERY_STRING'])['binlog_name']
+            sql = "purge master logs to " + "'" + binlog_name + "'"
+            cursor.execute(sql)
+            cursor.close()
+            return redirect('show_master_logs', pk = id)
+        else:
+            return redirect('/')
+
+
+class ItemOperationSlaveStartView(LoginRequiredMixin, DetailView):
+    def get(self, request, pk):
+        model = Item
+        queryset = model.objects.values(
+            'id', 'host_name', 'port').get(id = pk)
+        id = queryset['id']
+        host_name = queryset['host_name']
+        port = queryset['port']
+        conn = pymysql.connect(
+            user = CONNECT_USER, password = CONNECT_PASSWORD, host = host_name, port = port)
+        cursor = conn.cursor()
+        sql = "start slave"
+        result = cursor.execute(sql)
+        cursor.close()
+        return redirect('show_slave_status', pk = id)
+
+
+class ItemOperationSlaveStopView(LoginRequiredMixin, DetailView):
+    def get(self, request, pk):
+        model = Item
+        queryset = model.objects.values(
+            'id', 'host_name', 'port').get(id = pk)
+        id = queryset['id']
+        host_name = queryset['host_name']
+        port = queryset['port']
+        conn = pymysql.connect(
+            user = CONNECT_USER, password = CONNECT_PASSWORD, host = host_name, port = port)
+        cursor = conn.cursor()
+        sql = "stop slave"
+        result = cursor.execute(sql)
+        cursor.close()
+        return redirect('show_slave_status', pk = id)
+
+
+class ItemOperationSlaveSkipCounterView(LoginRequiredMixin, DetailView):
+    def get(self, request, pk):
+        model = Item
+        queryset = model.objects.values(
+            'id', 'host_name', 'port').get(id = pk)
+        id = queryset['id']
+        host_name = queryset['host_name']
+        port = queryset['port']
+        conn = pymysql.connect(
+            user = CONNECT_USER, password = CONNECT_PASSWORD, host = host_name, port = port)
+        cursor = conn.cursor()
+        sql = "set global sql_slave_skip_counter = 1"
+        result = cursor.execute(sql)
+        cursor.close()
+        return redirect('show_slave_status', pk = id)
+
+
+class ItemOperationSlaveResetView(LoginRequiredMixin, DetailView):
+    def get(self, request, pk):
+        model = Item
+        queryset = model.objects.values(
+            'id', 'host_name', 'port').get(id = pk)
+        id = queryset['id']
+        host_name = queryset['host_name']
+        port = queryset['port']
+        conn = pymysql.connect(
+            user = CONNECT_USER, password = CONNECT_PASSWORD, host = host_name, port = port)
+        cursor = conn.cursor()
+        sql = "reset slave all"
+        result = cursor.execute(sql)
+        cursor.close()
+        return redirect('show_slave_status', pk = id)
+
+
+class ItemOperationSlaveChangeMasterView(LoginRequiredMixin, DetailView):
+    def get(self, request, pk):
+        model = Item
+        queryset = model.objects.values(
+            'id', 'host_name', 'port').get(id = pk)
+        id = queryset['id']
+        host_name = queryset['host_name']
+        port = queryset['port']
+        conn = pymysql.connect(
+            user = CONNECT_USER, password = CONNECT_PASSWORD, host = host_name, port = port)
+        qs = QueryDict(request.META['QUERY_STRING'])
+        if 'master_host' in qs and 'master_port' in qs and 'master_log_file' in qs and 'master_log_pos' in qs:
+            cursor = conn.cursor()
+            master_host = QueryDict(request.META['QUERY_STRING'])['master_host']
+            master_port = QueryDict(request.META['QUERY_STRING'])['master_port']
+            master_user = REPL_USER
+            master_password = REPL_PASSWORD
+            master_log_file = QueryDict(request.META['QUERY_STRING'])['master_log_file']
+            master_log_pos = QueryDict(request.META['QUERY_STRING'])['master_log_pos']
+            sql = "change master to " +\
+                  "master_host = " + "'" + master_host + "'" + ","\
+                  "master_port = " + master_port + ","\
+                  "master_user = " + "'" + master_user + "'" + ","\
+                  "master_password = " + "'" + master_password + "'" + ","\
+                  "master_log_file = " + "'" + master_log_file + "'" + ","\
+                  "master_log_pos = " + master_log_pos
+            cursor.execute(sql)
+            cursor.close()
+            return redirect('show_slave_status', pk = id)
+        else:
+            return redirect('show_slave_status', pk = id)

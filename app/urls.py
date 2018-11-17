@@ -21,6 +21,14 @@ from .views import ItemShowMasterStatusView
 from .views import ItemShowMasterLogsView
 from .views import ItemShowSlaveStatusView
 from .views import ItemShowSlaveHostsView
+from .views import ItemOperationKillProcessView
+from .views import ItemOperationChangeParameterView
+from .views import ItemOperationPurgeMasterLogsView
+from .views import ItemOperationSlaveStartView
+from .views import ItemOperationSlaveStopView
+from .views import ItemOperationSlaveSkipCounterView
+from .views import ItemOperationSlaveResetView
+from .views import ItemOperationSlaveChangeMasterView
 
 
 urlpatterns = [
@@ -46,4 +54,12 @@ urlpatterns = [
     path('detail/<int:pk>/show_master_logs', ItemShowMasterLogsView.as_view(), name='show_master_logs'),
     path('detail/<int:pk>/show_slave_status', ItemShowSlaveStatusView.as_view(), name='show_slave_status'),
     path('detail/<int:pk>/show_slave_hosts', ItemShowSlaveHostsView.as_view(), name='show_slave_hosts'),
+    path('detail/<int:pk>/operation_kill_process', ItemOperationKillProcessView.as_view(), name='operation_kill_process'),
+    path('detail/<int:pk>/operation_change_parameter', ItemOperationChangeParameterView.as_view(), name='operation_change_parameter'),
+    path('detail/<int:pk>/operation_purge_master_logs', ItemOperationPurgeMasterLogsView.as_view(), name='operation_purge_master_logs'),
+    path('detail/<int:pk>/operation_slave_start', ItemOperationSlaveStartView.as_view(), name='operation_slave_start'),
+    path('detail/<int:pk>/operation_slave_stop', ItemOperationSlaveStopView.as_view(), name='operation_slave_stop'),
+    path('detail/<int:pk>/operation_slave_skip_counter', ItemOperationSlaveSkipCounterView.as_view(), name='operation_slave_skip_counter'),
+    path('detail/<int:pk>/operation_slave_reset', ItemOperationSlaveResetView.as_view(), name='operation_slave_reset'),
+    path('detail/<int:pk>/operation_slave_change_master', ItemOperationSlaveChangeMasterView.as_view(), name='operation_slave_change_master'),
 ]
