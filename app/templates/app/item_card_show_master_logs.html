@@ -14,14 +14,28 @@
 <table class="table table-bordered table-striped table-hover table-condensed" style="table-layout:fixed">
   <tbody>
     <tr>
+      <th style="text-align:center">Action</th>
       <th>Log_name</th>
       <th>File_size(Byte)</th>
     </tr>
     {% for r in result %}
     <tr>
-      {% for i in r.items %}
-      <td>{{ i.1 }}</td>
-      {% endfor %}
+      {% if forloop.first %}
+      <td style="text-align:center">
+        <form action="/detail/{{ id }}/operation_purge_master_logs" method="GET">
+          <input class="btn btn-dark btn-sm disabled" type="button" value="Delete">
+        </form>
+      </td>
+      {% else %}
+      <td style="text-align:center">
+        <form action="/detail/{{ id }}/operation_purge_master_logs" method="GET">
+          <input type="hidden" name="binlog_name" value={{ r.Log_name }}>
+          <input class="btn btn-primary btn-sm" type="submit" value="Delete" onclick="return confirm('You are going to delete binarylog. Are you sure?')">
+        </form>
+      </td>
+      {% endif %}
+      <td>{{ r.Log_name }}</td>
+      <td>{{ r.File_size }}</td>
     </tr>
     {% endfor %}
   </tbody>
