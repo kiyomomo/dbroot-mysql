@@ -12,7 +12,7 @@
 </table>
 <div class="jumbotron">
   <h3>Change parameter</h3>
-  <form action="/detail/{{ id }}/show_variables" method="GET">
+  <form action="/detail/{{ id }}/operation_change_parameter" method="GET">
     <label>Variable_name</label>
     <select id="variable_name" name="variable_name" required>
       <option value="">Please select parameter</option>
@@ -22,7 +22,7 @@
     </select>
     <label>Value</label>
     <input type="text" name="variable_value" required>
-    <input class="btn btn-primary" type="submit" value="Change">
+    <input class="btn btn-primary" type="submit" value="Change" onclick="return confirm('You are going to change parameter. Are you sure?')">
   </form>
 </div>
 <small>

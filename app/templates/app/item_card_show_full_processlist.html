@@ -27,9 +27,9 @@
     {% for r in result %}
     <tr>
       <td style="text-align:center">
-        <form action="/detail/{{ id }}/show_full_processlist" method="GET">
+        <form action="/detail/{{ id }}/operation_kill_process" method="GET">
           <input type="hidden" name="kill_id" value={{ r.Id }}>
-          <input class="btn btn-primary btn-sm" type="submit" value="Kill">
+          <input class="btn btn-primary btn-sm" type="submit" value="Kill" onclick="return confirm('You are going to kill the ID={{ r.Id }}. Are you sure?')">
         </form>
       </td>
       <td>{{ r.Id }}</td>
